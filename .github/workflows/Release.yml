@@ -24,18 +24,8 @@ jobs:
       - name: Build ui
         run: |
           cd ui
-          npm run build
+          npm run Build
           
-      - name: Fix vite binary permissions
-        run: |
-          cd ui
-          chmod +x node_modules/.bin/vite
-
-      - name: Build with Vite (using npx)
-        run: |
-          cd ui
-          npx vite build
-
       - name: Publish UI package
         working-directory: ./ui
         env:
