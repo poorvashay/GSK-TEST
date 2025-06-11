@@ -1,12 +1,16 @@
 {
-  "name": "ui",
+  "name": "poorvashay",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": false,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "version-packages": "changeset version",
+    "build": "echo 'Skipping build for release test'"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
 }

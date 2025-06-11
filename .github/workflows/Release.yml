@@ -1,9 +1,7 @@
 name: Post-release
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:  # Manual trigger only
 
 jobs:
   publish:
@@ -19,22 +17,28 @@ jobs:
         with:
           node-version: 18
           registry-url: https://registry.npmjs.org/
+          auth-token: ${{ secrets.NPM_TOKEN }}
 
       - name: Install dependencies
         run: npm install
 
-      - name: Build UI
-        working-directory: ./ui
-        run: npm run build
+      - name: Build ui
+        run: |
+          cd ui
+          npm run build || echo "No build needed"
 
       - name: Publish UI package
         working-directory: ./ui
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish
-
-      - name: Tag release and push tag
         run: |
-          TAG="v$(node -p \"require('./package.json').version\")"
-          git tag $TAG
-          git push origin $TAG
+          npm whoami
+          npm publish --access public
+
+      - name: Tag and push release
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          TAG="v$VERSION"
+          echo "Tagging release as $TAG"
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git tag "$TAG"
+          git push origin "$TAG"
