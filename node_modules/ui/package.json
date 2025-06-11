@@ -1,7 +1,7 @@
 {
   "name": "ui",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "version-packages": "changeset version",
     "build": "echo 'Skipping build for release test'"
