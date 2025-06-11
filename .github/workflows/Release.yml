@@ -25,6 +25,10 @@ jobs:
         run: |
           cd ui
           npm run build
+          
+      - name: Build with Vite (using npx)
+        run: |
+          cd ui
           npx vite build
 
       - name: Publish UI package
