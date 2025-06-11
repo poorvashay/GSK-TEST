@@ -27,8 +27,7 @@ jobs:
           npm run build
 
       - name: Publish UI package
-        run: |
-          cd ui
+        working-directory: ./ui
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish
