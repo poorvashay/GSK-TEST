@@ -1,12 +1,12 @@
 {
-  "name": "gsk-test",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "private": true,
+  "workspaces": ["ui"],
+  "devDependencies": {
+    "@changesets/cli": "^2.x"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "scripts": {
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "changeset publish"
+  }
 }
