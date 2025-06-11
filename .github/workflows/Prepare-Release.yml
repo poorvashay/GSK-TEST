@@ -3,9 +3,16 @@ name: Pre-release
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write        # needed for pushing commits/branches
+  pull-requests: write   # needed for creating PRs
+
 jobs:
   prepare-release-pr:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v3
@@ -42,6 +49,7 @@ jobs:
           echo "branch=$RELEASE_BRANCH" >> $GITHUB_OUTPUT
 
       - name: Create pull request with reviewers
+        if: success()
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
