@@ -32,8 +32,12 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish
 
-      - name: Tag release and push tag
+      - name: Tag and push release
         run: |
-          TAG="v$(node -p \"require('./package.json').version\")"
-          git tag $TAG
-          git push origin $TAG
+          VERSION=$(node -p "require('./package.json').version")
+          TAG="v$VERSION"
+          echo "Tagging release as $TAG"
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git tag "$TAG"
+          git push origin "$TAG"
