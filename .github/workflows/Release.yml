@@ -30,7 +30,6 @@ jobs:
       - name: Publish UI package
         working-directory: ./ui
         run: |
-          npm whoami
           npm publish --access public
 
       - name: Tag and push release
