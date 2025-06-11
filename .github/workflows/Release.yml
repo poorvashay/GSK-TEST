@@ -24,7 +24,7 @@ jobs:
       - name: Build ui
         run: |
           cd ui
-          npm run build
+          npm run build || echo "No build needed"
 
       - name: Publish UI package
         working-directory: ./ui

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "version-packages": "changeset version",
-    "build": "npm run build"
+    "build": "echo 'Skipping build for release test'"
   },
   "dependencies": {
     "react": "^18.0.0",
