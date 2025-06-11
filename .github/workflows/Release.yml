@@ -25,6 +25,7 @@ jobs:
         run: |
           cd ui
           npm run build
+          npx vite build
 
       - name: Publish UI package
         working-directory: ./ui
