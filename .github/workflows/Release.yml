@@ -24,8 +24,8 @@ jobs:
       - name: Build ui
         run: |
           cd ui
-          npm run Build
-          
+          npm run build
+
       - name: Publish UI package
         working-directory: ./ui
         env:
