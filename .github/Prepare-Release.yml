@@ -1,0 +1,48 @@
+name: Pre-release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  prepare-release-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run changeset version
+        run: npx changeset version
+
+      - name: Commit version bump (if any)
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git add .
+          git commit -m "chore(release): version bump" || echo "No changes to commit"
+
+      - name: Create release branch and push
+        id: create_branch
+        run: |
+          RELEASE_BRANCH="release-pr-${{ github.run_id }}"
+          git checkout -b $RELEASE_BRANCH
+          git push origin $RELEASE_BRANCH
+          echo "branch=$RELEASE_BRANCH" >> $GITHUB_OUTPUT
+
+      - name: Create pull request with reviewers
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ steps.create_branch.outputs.branch }}
+          base: main
+          title: "Release: Version bump"
+          body: "Automated release PR, please review."
