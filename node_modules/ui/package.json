@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "version-packages": "changeset version"
+    "version-packages": "changeset version",
+    "build": "npm run build"
   },
   "dependencies": {
     "react": "^18.0.0",
